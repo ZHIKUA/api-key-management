@@ -19,7 +19,7 @@ app.post("/apikeys", (req, res) => {
     let message = dbService.addApiKey(apiKeyString, developer_id);
     res.send(message);
 });
-
+//
 app.post("/ping", (req, res) => {
     let apiKeyString = req.header('X-API-KEY');
     let message = dbService.getApiKeyByString(apiKeyString);
@@ -31,9 +31,10 @@ app.get("/usage", (req, res) => {
     let summary = dbService.getSummaryByDeveloperId(developer_id);
     res.json(summary);
 });
-
+//
 autoRenewal(dbService);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${process.env.PORT}`);
 });
+//
