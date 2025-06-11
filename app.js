@@ -22,6 +22,7 @@ app.post("/apikeys", (req, res) => {
 //
 app.post("/ping", (req, res) => {
     let apiKeyString = req.header('X-API-KEY');
+    console.log(apiKeyString)
     let message = dbService.getApiKeyByString(apiKeyString);
     res.send(message);
 });

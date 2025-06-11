@@ -23,7 +23,7 @@ class DBService{
         if (!this.developers.map(developer=>developer.id).includes(developer_id)) {
             return "Developer id does not exist. ";
         }
-        this.developers.push({ 
+        this.apiKeys.push({ 
             id: this.apiKeyId, 
             keyString: apiKeyString, 
             usageToday: 0,
@@ -35,7 +35,7 @@ class DBService{
     }
 
     getApiKeyByString(apiKeyString) {
-        let apiKey = this.apiKeys.find(apiKey=>apiKey.apiKeyString===apiKeyString);
+        let apiKey = this.apiKeys.find(apiKey=>apiKey.keyString===apiKeyString);
         if (!apiKey) {
             return "Wrong API Key. "; 
         } else if (apiKey.dailyUsageCount > process.env.DAILY_LIMIT) {
@@ -49,7 +49,7 @@ class DBService{
     getSummaryByDeveloperId(developer_id) {
         let apiKeys = this.apiKeys.filter(apiKey=>apiKey.developerId==developer_id);
         return apiKeys.map(apiKey=>({
-            apiKeyString: apiKey.apiKeyString, 
+            apiKeyString: apiKey.keyString, 
             usageCount: apiKey.usageToday,
             usageBalance: process.env.DAILY_LIMIT - apiKey.usageToday
         }));
