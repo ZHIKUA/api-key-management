@@ -15,16 +15,21 @@ class DBService{
         }
         this.developers.push({ id: this.developerId, name, email})
         this.developerId ++;
+        console.log(this.developers)
         return "Developer registered successfully. "
     }
 
     addApiKey(apiKeyString, developer_id) {
+        if (!this.developers.map(developer=>developer.id).includes(developer_id)) {
+            return "Developer id does not exist. ";
+        }
         this.developers.push({ 
             id: this.apiKeyId, 
             keyString: apiKeyString, 
             usageToday: 0,
             developerId: developer_id
         })
+        console.log(apiKeyString);
         this.apiKeyId ++;
         return "Key Added Successfully"; 
     }

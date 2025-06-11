@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const dbService = require("./service.js");
 const autoRenewal = require("./auto-renewal.js");
+const bodyParser = require("body-parser");
 require("dotenv").config();
+
+app.use(bodyParser.json());
 
 app.post("/developers", (req, res) => {
     let {name, email} = req.body;
@@ -11,7 +14,7 @@ app.post("/developers", (req, res) => {
 });
 
 app.post("/apikeys", (req, res) => {
-    let { developer_id } = req.body.developer_id;
+    let developer_id = req.body.developer_id;
     let apiKeyString = crypto.randomUUID();
     let message = dbService.addApiKey(apiKeyString, developer_id);
     res.send(message);
